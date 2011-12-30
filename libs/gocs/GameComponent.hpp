@@ -25,40 +25,26 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <QtGui>
-#include "GridCell.hpp"
+#ifndef GameComponent_hpp
+#define GameComponent_hpp
 
-int main(int argc, char *argv[])
+#include <string>
+#include "Types.hpp"
+
+class GameComponent
 {
+public:
+    virtual void update() = 0; //Update the state of the Component
     
-    //This is how to create a barebone Graphic Scene.
-    QApplication a(argc, argv);
-    QGraphicsScene scene;
-    scene.setSceneRect(0,0,640,480);
-    scene.setItemIndexMethod(QGraphicsScene::NoIndex);
+    const GameObjId& ownerId() const { return owner_; }
+    const GameCompId& id() const { return id_; }
+    virtual const FamilyId familyId() const = 0;
     
-    QGraphicsView view(&scene);
-    view.setRenderHint(QPainter::Antialiasing);
-    view.setBackgroundBrush(QPixmap(":/images/ramtrace.png"));
-    
-    //Create a GridCell
-    GridCell cell0(1,1);
-    scene.addItem(&cell0);
+protected:
+    GameCompId id_;
+    GameObjId owner_; //Who owns this component
+};
 
-    //GridCell cell1(10,4);
-    //scene.addItem(&cell1);
 
-    GridCell cell2(2,2);
-    scene.addItem(&cell2);
-    
-    view.setCacheMode(QGraphicsView::CacheBackground);
-    view.setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
-    view.setDragMode(QGraphicsView::ScrollHandDrag);
-    
-    
-    view.setWindowTitle(QT_TRANSLATE_NOOP(QGraphicsView, "SIGSEGV"));
-    view.resize(640, 480);
-    view.show();
-    
-    return a.exec();
-}
+
+#endif

@@ -25,40 +25,14 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <QtGui>
-#include "GridCell.hpp"
+#ifndef EntitiesBroker_hpp
+#define EntitiesBroker_hpp
 
-int main(int argc, char *argv[])
-{
-    
-    //This is how to create a barebone Graphic Scene.
-    QApplication a(argc, argv);
-    QGraphicsScene scene;
-    scene.setSceneRect(0,0,640,480);
-    scene.setItemIndexMethod(QGraphicsScene::NoIndex);
-    
-    QGraphicsView view(&scene);
-    view.setRenderHint(QPainter::Antialiasing);
-    view.setBackgroundBrush(QPixmap(":/images/ramtrace.png"));
-    
-    //Create a GridCell
-    GridCell cell0(1,1);
-    scene.addItem(&cell0);
+/* Since in the original version of Game Programming Gems 6 GameObject and
+ * GameComponents are thighly coupled, a Broker here need to relax this 
+ * coupling. 
+ */
 
-    //GridCell cell1(10,4);
-    //scene.addItem(&cell1);
 
-    GridCell cell2(2,2);
-    scene.addItem(&cell2);
-    
-    view.setCacheMode(QGraphicsView::CacheBackground);
-    view.setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
-    view.setDragMode(QGraphicsView::ScrollHandDrag);
-    
-    
-    view.setWindowTitle(QT_TRANSLATE_NOOP(QGraphicsView, "SIGSEGV"));
-    view.resize(640, 480);
-    view.show();
-    
-    return a.exec();
-}
+
+#endif

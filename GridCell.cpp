@@ -26,11 +26,32 @@
  */
 
 #include "GridCell.hpp"
+#include <iostream>
 
+GridCell::GridCell(int x, int y)
+    :x_(x), y_(y)
+{
+    //NO-OP
+}
+
+GridCell::~GridCell()
+{
+    //NO-OP
+}
+
+void GridCell::update()
+{
+    //NO-OP
+}
+
+void GridCell::render()
+{
+    //NO-OP
+}
 
 QRectF GridCell::boundingRect() const
 {
-    return QRectF(-10, -10, 20, 20);
+    return QRectF();
 }
 
 void GridCell::paint(QPainter *painter,
@@ -38,5 +59,17 @@ void GridCell::paint(QPainter *painter,
                      QWidget *widget)
 {
     painter->setBrush(Qt::red);
-    painter->drawEllipse(0,0,100,100);
+    painter->setPen(Qt::NoPen);
+
+    //This simple math assure that you can position a cell
+    //just like a real grid, for example (1,1) will be the
+    //first row, first column.
+    QPoint topLeft((x_ - 1) * CELL_SIDE + CELL_OFFSET * x_,
+                   (y_ - 1) * CELL_SIDE + CELL_OFFSET * y_);
+    QPoint bottomRight(topLeft.x() + CELL_SIDE,
+                       topLeft.y() + CELL_SIDE);
+    QRect rect(topLeft, bottomRight);
+    painter->drawRect(rect);
+
+    std::cout << "<" << topLeft.x() << "," << topLeft.y() << ">" << std::endl;
 }

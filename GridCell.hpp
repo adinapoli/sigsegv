@@ -28,13 +28,24 @@
 #ifndef GRIDCELL_HPP
 #define GRIDCELL_HPP
 
+#include "gocs/GraphicComponent.hpp"
 #include <QtGui>
 
-class GridCell: public QGraphicsItem
+static const int CELL_SIDE = 15;
+static const int CELL_OFFSET = 2;
+
+class GridCell: public GraphicComponent, public QGraphicsItem
 {
+public:
+    GridCell(int x, int y);
+    ~GridCell();
+    void update();
+    void render();
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                QWidget *widget);
+private:
+    int x_, y_;
 };
 
 #endif
