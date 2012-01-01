@@ -1,21 +1,37 @@
 SOURCES += \
     main.cpp \
     GridCell.cpp \
-    Grid.cpp
+    Grid.cpp \
+    GameState.cpp \
+    Inventory.cpp \
+    HUD.cpp \
+    LevelDisplayer.cpp \
+    InventoryDisplayer.cpp \
+    GameDataManager.cpp
 
 OTHER_FILES += \
-    resources/sigsegv.rcc
+    resources/sigsegv.rcc \
+    levels/level1.json
 
 RESOURCES += \
-    resources/sigsegv.qrc
+    resources/sigsegv.qrc \
+    resources/data.qrc
 
 HEADERS += \
     GridCell.hpp \
-    Grid.hpp
+    Grid.hpp \
+    GameState.hpp \
+    Inventory.hpp \
+    HUD.hpp \
+    LevelDisplayer.hpp \
+    InventoryDisplayer.hpp \
+    GameDataManager.hpp
 
-macx: LIBS += -L$$PWD/libs/ -lgocs
+macx: LIBS += -L$$PWD/libs/ -lgocs -ljson
 
 INCLUDEPATH += $$PWD/libs
 DEPENDPATH += $$PWD/libs
 
-macx: PRE_TARGETDEPS += $$PWD/libs/libgocs.a
+macx: PRE_TARGETDEPS += \
+    $$PWD/libs/libgocs.a \
+    $$PWD/libs/libjson.a

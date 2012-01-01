@@ -28,8 +28,8 @@
 #include "GridCell.hpp"
 #include <iostream>
 
-GridCell::GridCell(int x, int y)
-    :x_(x), y_(y)
+GridCell::GridCell(const GameCompId& id, int x, int y)
+    :x_(x), y_(y), GraphicComponent(id)
 {
     //NO-OP
 }

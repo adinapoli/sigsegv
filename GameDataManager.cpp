@@ -25,46 +25,45 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <QtGui>
-#include <iostream>
-#include "GridCell.hpp"
 #include "GameDataManager.hpp"
+#include <QFile>
+#include <QString>
+#include <QTextStream>
+#include <iostream>
 
-int main(int argc, char *argv[])
+
+/**
+  * \brief Given a resource name, it opens it, read the content,
+  * build a C++ String from it and parse these string with the
+  * JSon Library
+  * \param filename The resource name
+  */
+GameDataManager::GameDataManager(const std::string &filename)
+    :filename_(filename)
 {
-    GameDataManager(":/data/level1.json");
-    
-    //This is how to create a barebone Graphic Scene.
-    QApplication a(argc, argv);
-    QGraphicsScene scene;
-    scene.setSceneRect(0,0,640,480);
-    scene.setItemIndexMethod(QGraphicsScene::NoIndex);
-    
-    QGraphicsView view(&scene);
-    view.setRenderHint(QPainter::Antialiasing);
-    view.setBackgroundBrush(QPixmap(":/images/ramtrace.png"));
-    
-    //Create a GridCell
-    GridCell cell0("cell00", 1,1);
-    scene.addItem(&cell0);
 
-    GridCell cell1("cell51", 5,1);
-    scene.addItem(&cell1);
+    //We need to convert the QT resource into a C++ String
+    QFile file(QString(filename.c_str()));
+    file.open(QIODevice::ReadOnly | QIODevice::Text);
+    QTextStream in(&file);
+    QString document = in.readAll();
 
-    GridCell cell2("cell22", 2,2);
-    scene.addItem(&cell2);
+    //Convent the QString
+    std::string documentAsString(document.toUtf8().constData());
 
-    GridCell cell4("cell104", 10,4);
-    scene.addItem(&cell4);
-    
-    view.setCacheMode(QGraphicsView::CacheBackground);
-    view.setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
-    view.setDragMode(QGraphicsView::ScrollHandDrag);
-    
-    
-    view.setWindowTitle(QT_TRANSLATE_NOOP(QGraphicsView, "SIGSEGV"));
-    view.resize(640, 480);
-    view.show();
-    
-    return a.exec();
+    //Parse the document, given as an utf8 string.
+    Json::Reader reader;
+
+    bool parsingSuccessful = reader.parse(documentAsString, dataRoot_ );
+    if ( !parsingSuccessful )
+    {
+        // report to the user the failure and their locations in the document.
+        std::cout << reader.getFormatedErrorMessages() << std::endl;
+        return;
+    }
+}
+
+GameDataManager::~GameDataManager()
+{
+    //TODO
 }
