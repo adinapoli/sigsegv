@@ -45,11 +45,14 @@ int main(int argc, char *argv[])
     GridCell cell0(1,1);
     scene.addItem(&cell0);
 
-    //GridCell cell1(10,4);
-    //scene.addItem(&cell1);
+    GridCell cell1(5,1);
+    scene.addItem(&cell1);
 
     GridCell cell2(2,2);
     scene.addItem(&cell2);
+
+    GridCell cell4(10,4);
+    scene.addItem(&cell4);
     
     view.setCacheMode(QGraphicsView::CacheBackground);
     view.setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);

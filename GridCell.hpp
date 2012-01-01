@@ -31,8 +31,8 @@
 #include "gocs/GraphicComponent.hpp"
 #include <QtGui>
 
-static const int CELL_SIDE = 15;
-static const int CELL_OFFSET = 2;
+static const int CELL_SIDE = 18;
+static const int CELL_OFFSET = 1;
 
 class GridCell: public GraphicComponent, public QGraphicsItem
 {

@@ -61,15 +61,24 @@ void GridCell::paint(QPainter *painter,
     painter->setBrush(Qt::red);
     painter->setPen(Qt::NoPen);
 
-    //This simple math assure that you can position a cell
-    //just like a real grid, for example (1,1) will be the
-    //first row, first column.
-    QPoint topLeft((x_ - 1) * CELL_SIDE + CELL_OFFSET * x_,
-                   (y_ - 1) * CELL_SIDE + CELL_OFFSET * y_);
-    QPoint bottomRight(topLeft.x() + CELL_SIDE,
-                       topLeft.y() + CELL_SIDE);
+
+    /* The grid is composed by 20 x 20 tiles,
+     * each tile with 18 px of content and 1 px as
+     * frame. Photoshop says this, even if the tile is
+     * 20 x 20, but I'm trusting it.
+     * Every tile is initially put in (1,1) -> (0,0) in world
+     * coords, and then translated by the correct offset.
+     */
+    QPoint topLeft(CELL_OFFSET,CELL_OFFSET);
+    QPoint bottomRight(CELL_SIDE, CELL_SIDE);
     QRect rect(topLeft, bottomRight);
     painter->drawRect(rect);
 
-    std::cout << "<" << topLeft.x() << "," << topLeft.y() << ">" << std::endl;
+
+    /* This simple math assure that you can position a cell
+     * just like a real grid, for example (1,1) will be the
+     * first row, first column.
+     */
+    setPos((x_-1) * CELL_SIDE + (CELL_OFFSET+1) * (x_-1),
+          (y_-1) * CELL_SIDE +  (CELL_OFFSET+1) * (y_-1));
 }
