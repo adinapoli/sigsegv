@@ -1,6 +1,7 @@
 SOURCES += \
     main.cpp \
-    GridCell.cpp
+    GridCell.cpp \
+    Grid.cpp
 
 OTHER_FILES += \
     resources/sigsegv.rcc
@@ -9,7 +10,8 @@ RESOURCES += \
     resources/sigsegv.qrc
 
 HEADERS += \
-    GridCell.hpp
+    GridCell.hpp \
+    Grid.hpp
 
 macx: LIBS += -L$$PWD/libs/ -lgocs
 
