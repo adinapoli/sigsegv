@@ -84,4 +84,12 @@ GameDataManager& GameDataManager::operator=(const GameDataManager& rhs)
         filename_ = rhs.filename_;
         dataRoot_ = rhs.dataRoot_;
     }
+
+    return *this;
+}
+
+
+const Json::Value& GameDataManager::operator[] (const std::string& key) const
+{
+    return dataRoot_.get(key, "ValueNotFound");
 }

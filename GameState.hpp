@@ -30,18 +30,21 @@
 
 #include "gocs/gocs.hpp"
 #include "GameDataManager.hpp"
+#include "Grid.hpp"
 #include <string>
 
 class GameState: public GameObject
 {
-private:
-    GameState(const GameObjId& id);
+public:
+    GameState(const GameObjId& id, int level);
     ~GameState();
     void update();
     void loadGameData(const std::string& dataResource);
 
 private:
     GameDataManager currentManager_;
+    Grid grid_;
+    int currentLevel_;
 };
 
 #endif

@@ -28,8 +28,10 @@
 #include "LevelDisplayer.hpp"
 
 
-LevelDisplayer::LevelDisplayer(const GameCompId& id)
-    :GraphicComponent(id)
+LevelDisplayer::LevelDisplayer(const GameCompId& id,
+                               int levelNumber,
+                               const std::string& levelName)
+    :GraphicComponent(id), levelNumber_(levelNumber), levelName_(levelName)
 {
     //TODO
 }

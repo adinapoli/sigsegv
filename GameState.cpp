@@ -26,12 +26,19 @@
  */
 
 #include "GameState.hpp"
+#include "Utils.hpp"
 #include <QString>
+#include <sstream> //Needed for int ->
 
-GameState::GameState(const GameObjId& id)
-    :GameObject(id)
+GameState::GameState(const GameObjId& id, int level)
+    :GameObject(id), currentLevel_(level)
 {
-    //TODO
+    std::stringstream levelStream;
+    levelStream << level; //add level number to the stream
+
+    //The input string to the method will be something like:
+    // :/data/level1.json
+    loadGameData(levelsPath + "level" + levelStream.str() + ".json");
 }
 
 GameState::~GameState()

@@ -29,15 +29,18 @@
 #define GRID_CPP
 
 #include "gocs/gocs.hpp"
+#include "GameDataManager.hpp"
 
 class Grid: public GameObject
 {
 public:
+    Grid() : GameObject(GameObjId("aGrid")){}
     Grid(const GameObjId& id);
     ~Grid();
 
     void update();
-    void makeGrid();
+    void load(const GameDataManager& gdm);
+    Grid& operator=(const Grid& rhs);
 };
 
 #endif

@@ -1,6 +1,6 @@
 {
-	"levelnumber" : 1,
-	"levelname" : "The pit",
+	"levelNumber" : 1,
+	"levelName" : "The pit",
 	"map" :
 	{
 		"free" : 

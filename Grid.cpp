@@ -27,6 +27,8 @@
 
 
 #include "Grid.hpp"
+#include "json/json.h"
+#include "GridCell.hpp"
 
 
 Grid::Grid(const GameObjId& id)
@@ -40,12 +42,38 @@ Grid::~Grid()
     //TODO
 }
 
+Grid& Grid::operator=(const Grid& rhs)
+{
+    //Not working, TODO
+    if(this != &rhs)
+    {
+        componentsMap_.swap(rhs.componentsMap_);
+    }
+
+    return *this;
+}
+
 void update()
 {
     //TODO
 }
 
-void makeGrid()
+void Grid::load(const GameDataManager& gdm)
 {
-    //TODO
+    //Read the map info, create grid objects but
+    //don't render them.
+
+    //First load the free cells.
+    Json::Value freeCells = gdm["free"];
+
+    for(int i = 0; i < freeCells.size(); i++)
+    {
+        int x = freeCells[i][0u].asInt();
+        int y = freeCells[i][1u].asInt();
+        std::string cellName = freeCells[i][0u].asString() + freeCells[i][1u].asString();
+        componentsMap_[cellName] = new GridCell(GameCompId("cell" + cellName),
+                                                x,y);
+    }
+
+    //TODO, enemies and objects cells.
 }

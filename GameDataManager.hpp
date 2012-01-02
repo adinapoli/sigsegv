@@ -42,6 +42,7 @@ public:
     GameDataManager(const std::string& filename);
     ~GameDataManager();
     GameDataManager& operator=(const GameDataManager& rhs);
+    const Json::Value& operator[](const std::string& key) const;
 
 private:
     std::string filename_;

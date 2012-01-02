@@ -26,15 +26,25 @@
  */
 
 #include "HUD.hpp"
+#include "LevelDisplayer.hpp"
+#include "InventoryDisplayer.hpp"
 
 
 HUD::HUD(const GameObjId &id, const GameDataManager& gdm)
     :GameObject(id)
 {
-    //Read settings from file.
-
     //For every component, pick the value from GameDataManager
     //and initialize the displayers.
+
+    //LevelDisplayer
+    int levelNumber = gdm["levelNumber"].asInt();
+    std::string levelName = gdm["levelName"].asString();
+    componentsMap_["levelDisplayer"] = new LevelDisplayer(GameCompId("levelDisplayer"),
+                                                          levelNumber,
+                                                          levelName);
+
+    //InventoryDisplayer
+    componentsMap_["inventoryDisplayer"] = new InventoryDisplayer(GameCompId("inventoryDisplayer"));
 }
 
 

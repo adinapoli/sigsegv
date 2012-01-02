@@ -55,5 +55,10 @@ Json::Value readSettingsFor(const std::string objName)
         throw SettingsParsingException();
     }
 
-    return dataRoot_.get(objName, "ObjectNotFound");
+    Json::Value settingsForObj = dataRoot_.get(objName, "ObjectNotFound");
+
+    if(settingsForObj.asString() == std::string("ObjectNotFound"))
+        throw ObjectNotFoundInSettingsException(objName);
+
+    return settingsForObj;
 }

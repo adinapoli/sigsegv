@@ -27,13 +27,11 @@
 
 #include <QtGui>
 #include <iostream>
-#include "GridCell.hpp"
+#include "GameState.hpp"
 #include "GameDataManager.hpp"
 
 int main(int argc, char *argv[])
-{
-    GameDataManager(":/data/level1.json");
-    
+{   
     //This is how to create a barebone Graphic Scene.
     QApplication a(argc, argv);
     QGraphicsScene scene;
@@ -45,17 +43,11 @@ int main(int argc, char *argv[])
     view.setBackgroundBrush(QPixmap(":/images/ramtrace.png"));
     
     //Create a GridCell
-    GridCell cell0("cell00", 1,1);
-    scene.addItem(&cell0);
+    GameState gameState("gameState", 1);
 
-    GridCell cell1("cell51", 5,1);
-    scene.addItem(&cell1);
 
-    GridCell cell2("cell22", 2,2);
-    scene.addItem(&cell2);
-
-    GridCell cell4("cell104", 10,4);
-    scene.addItem(&cell4);
+    //GridCell cell1("cell51", 5,1);
+    //scene.addItem(&cell1);
     
     view.setCacheMode(QGraphicsView::CacheBackground);
     view.setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);

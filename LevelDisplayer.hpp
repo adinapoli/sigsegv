@@ -34,13 +34,18 @@
 class LevelDisplayer: public GraphicComponent, public QGraphicsTextItem
 {
 public:
-    LevelDisplayer(const GameCompId& id);
+    LevelDisplayer(const GameCompId& id, int levelNumber,
+                   const std::string& levelName);
     ~LevelDisplayer();
     void update();
     void render();
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                QWidget *widget);
+
+private:
+    int levelNumber_;
+    std::string levelName_;
 };
 
 #endif

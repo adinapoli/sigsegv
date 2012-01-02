@@ -32,6 +32,8 @@
 #include "Exceptions.hpp"
 #include <string>
 
+
+const static std::string levelsPath = ":/data/";
 const static std::string settingsPath = ":/data/settings.json";
 Json::Value readSettingsFor(const std::string objName);
 
