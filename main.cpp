@@ -34,13 +34,7 @@ int main(int argc, char *argv[])
 {   
     //This is how to create a barebone Graphic Scene.
     QApplication a(argc, argv);
-    QGraphicsScene scene;
-    scene.setSceneRect(0,0,640,480);
-    scene.setItemIndexMethod(QGraphicsScene::NoIndex);
-    
-    QGraphicsView view(&scene);
-    view.setRenderHint(QPainter::Antialiasing);
-    view.setBackgroundBrush(QPixmap(":/images/ramtrace.png"));
+
     
     //Create a GridCell
     GameState gameState("gameState", 1);
@@ -48,15 +42,10 @@ int main(int argc, char *argv[])
 
     //GridCell cell1("cell51", 5,1);
     //scene.addItem(&cell1);
-    
-    view.setCacheMode(QGraphicsView::CacheBackground);
-    view.setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
-    view.setDragMode(QGraphicsView::ScrollHandDrag);
-    
-    
-    view.setWindowTitle(QT_TRANSLATE_NOOP(QGraphicsView, "SIGSEGV"));
-    view.resize(640, 480);
-    view.show();
+
+
+    //view.resize(640, 480);
+    gameState.view().show();
     
     return a.exec();
 }

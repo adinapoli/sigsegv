@@ -44,10 +44,11 @@ Grid::~Grid()
 
 Grid& Grid::operator=(const Grid& rhs)
 {
-    //Not working, TODO
+    //Probably not the best solution
     if(this != &rhs)
     {
-        componentsMap_.swap(rhs.componentsMap_);
+        componentsMap_.clear();
+        componentsMap_ = rhs.componentsMap_;
     }
 
     return *this;

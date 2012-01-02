@@ -28,17 +28,53 @@
 #include "GameState.hpp"
 #include "Utils.hpp"
 #include <QString>
-#include <sstream> //Needed for int ->
+#include <sstream> //Needed for int -> string conversion.
 
 GameState::GameState(const GameObjId& id, int level)
     :GameObject(id), currentLevel_(level)
 {
+    //Read configuration from settings.
+    Json::Value settings = readSettingsFor(id);
+
+    //Coordinates for resolution settings.
+    Json::Value upperLeft = settings["resolution"][0u];
+    Json::Value bottomRight = settings["resolution"][1u];
+
+    int ulX = upperLeft[0u].asInt();
+    int ulY = upperLeft[1u].asInt();
+    int brX = bottomRight[0u].asInt();
+    int brY = bottomRight[1u].asInt();
+
+    //Setup the scene
+    scene_.setSceneRect(ulX,ulY,brX,brY);
+    scene_.setItemIndexMethod(QGraphicsScene::NoIndex);
+
+    //Setup the view
+    std::string background = settings["background"].asString();
+
+    view_.setScene(&scene_);
+    view_.setRenderHint(QPainter::Antialiasing);
+    view_.setBackgroundBrush(QPixmap(background.c_str()));
+    view_.setCacheMode(QGraphicsView::CacheBackground);
+    view_.setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
+    view_.setDragMode(QGraphicsView::ScrollHandDrag);
+
+    std::string windowTitle = settings["windowTitle"].asString();
+    view_.setWindowTitle(QT_TRANSLATE_NOOP(QGraphicsView, windowTitle.c_str()));
+    view_.resize(brX, brY);
+
+
+    //Bootstraps the grid
     std::stringstream levelStream;
     levelStream << level; //add level number to the stream
 
     //The input string to the method will be something like:
     // :/data/level1.json
-    loadGameData(levelsPath + "level" + levelStream.str() + ".json");
+    std::string resourcePath = levelsPath + "level" + levelStream.str() + ".json";
+    loadGameData(resourcePath);
+
+    //Create the grid
+    grid_.load(currentManager_);
 }
 
 GameState::~GameState()

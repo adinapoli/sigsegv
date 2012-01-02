@@ -34,7 +34,7 @@
 class Grid: public GameObject
 {
 public:
-    Grid() : GameObject(GameObjId("aGrid")){}
+    Grid() : GameObject(GameObjId("grid")){}
     Grid(const GameObjId& id);
     ~Grid();
 

@@ -29,6 +29,7 @@
 #define GAMESTATE_HPP
 
 #include "gocs/gocs.hpp"
+#include <QtGui>
 #include "GameDataManager.hpp"
 #include "Grid.hpp"
 #include <string>
@@ -40,8 +41,12 @@ public:
     ~GameState();
     void update();
     void loadGameData(const std::string& dataResource);
+    QGraphicsView& view() { return view_; }
 
 private:
+
+    QGraphicsScene scene_;
+    QGraphicsView view_;
     GameDataManager currentManager_;
     Grid grid_;
     int currentLevel_;

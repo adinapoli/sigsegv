@@ -2,6 +2,7 @@
 #define EXCEPTIONS_HPP
 
 #include <stdexcept>
+#include <iostream>
 
 class SettingsParsingException: public std::exception
 {
@@ -22,6 +23,7 @@ public:
     virtual const char* what() const throw()
     {
         std::string errorMsg =  "Couldn't find " + objName_ + " in settings.";
+        std::cout << errorMsg << std::endl;
         return errorMsg.c_str();
     }
 

@@ -1,6 +1,8 @@
 {
-	"hud" :
+	"gameState" :
 	{
-		"components" : ["levelNumber", "levelName", "time", "inventory"]
+		"windowTitle" : "SIGSEGV",
+		"resolution" : [[0,0], [640,480]],
+		"background" : ":/images/ramtrace.png"
 	}
 }

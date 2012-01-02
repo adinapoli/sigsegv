@@ -33,7 +33,7 @@
 
 Json::Value readSettingsFor(const std::string objName)
 {
-    Json::Value dataRoot_;
+    Json::Value dataRoot;
 
     //We need to convert the QT resource into a C++ String
     QFile file(QString(settingsPath.c_str()));
@@ -47,7 +47,8 @@ Json::Value readSettingsFor(const std::string objName)
     //Parse the document, given as an utf8 string.
     Json::Reader reader;
 
-    bool parsingSuccessful = reader.parse(documentAsString, dataRoot_ );
+    bool parsingSuccessful = reader.parse(documentAsString, dataRoot);
+    std::cout << dataRoot << std::endl;
     if ( !parsingSuccessful )
     {
         // report to the user the failure and their locations in the document.
@@ -55,10 +56,16 @@ Json::Value readSettingsFor(const std::string objName)
         throw SettingsParsingException();
     }
 
-    Json::Value settingsForObj = dataRoot_.get(objName, "ObjectNotFound");
+    Json::Value settingsForObj = dataRoot.get(objName, "ObjectNotFound");
 
-    if(settingsForObj.asString() == std::string("ObjectNotFound"))
-        throw ObjectNotFoundInSettingsException(objName);
+
+    //If for the selected objects doesn't exist a settings line,
+    //throws an exception.
+    //BUGGY: it makes the code crash. CPP-JSON problem I guess.
+    //std::string result = std::string(settingsForObj.asString());
+    //std::string nomatch = std::string("ObjectNotFound");
+    //if(!result.compare(nomatch))
+    //    throw ObjectNotFoundInSettingsException(objName);
 
     return settingsForObj;
 }
