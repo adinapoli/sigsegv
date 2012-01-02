@@ -1,0 +1,6 @@
+{
+	"hud" :
+	{
+		"components" : ["levelNumber", "levelName", "time", "inventory"]
+	}
+}

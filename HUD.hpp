@@ -29,6 +29,7 @@
 #define HUD_HPP
 
 #include "gocs/gocs.hpp"
+#include "GameDataManager.hpp"
 
 /*
  * An HUD is an aggregation of Graphic Component, thus it's an Object.
@@ -36,7 +37,7 @@
 
 class HUD: public GameObject
 {
-    HUD(const GameObjId& id);
+    HUD(const GameObjId& id, const GameDataManager& gdm);
     ~HUD();
     void update();
 };

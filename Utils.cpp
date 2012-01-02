@@ -25,30 +25,18 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "GameDataManager.hpp"
+#include "Utils.hpp"
 #include <QFile>
 #include <QString>
 #include <QTextStream>
 #include <iostream>
 
-
-GameDataManager::GameDataManager()
+Json::Value readSettingsFor(const std::string objName)
 {
-    //Empty constructor.
-}
-
-/**
-  * \brief Given a resource name, it opens it, read the content,
-  * build a C++ String from it and parse these string with the
-  * JSon Library
-  * \param filename The resource name
-  */
-GameDataManager::GameDataManager(const std::string &filename)
-    :filename_(filename)
-{
+    Json::Value dataRoot_;
 
     //We need to convert the QT resource into a C++ String
-    QFile file(QString(filename.c_str()));
+    QFile file(QString(settingsPath.c_str()));
     file.open(QIODevice::ReadOnly | QIODevice::Text);
     QTextStream in(&file);
     QString document = in.readAll();
@@ -64,24 +52,8 @@ GameDataManager::GameDataManager(const std::string &filename)
     {
         // report to the user the failure and their locations in the document.
         std::cout << reader.getFormatedErrorMessages() << std::endl;
-        return;
+        throw SettingsParsingException();
     }
-}
 
-GameDataManager::~GameDataManager()
-{
-    //TODO
-}
-
-
-GameDataManager& GameDataManager::operator=(const GameDataManager& rhs)
-{
-    if(this != &rhs)
-    {
-        dataRoot_.clear();
-        filename_.clear();
-
-        filename_ = rhs.filename_;
-        dataRoot_ = rhs.dataRoot_;
-    }
+    return dataRoot_.get(objName, "ObjectNotFound");
 }

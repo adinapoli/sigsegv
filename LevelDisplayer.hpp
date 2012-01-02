@@ -31,7 +31,7 @@
 #include <QtGui>
 #include "gocs/gocs.hpp"
 
-class LevelDisplayer: public GraphicComponent, public QGraphicsItem
+class LevelDisplayer: public GraphicComponent, public QGraphicsTextItem
 {
 public:
     LevelDisplayer(const GameCompId& id);

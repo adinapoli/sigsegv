@@ -7,7 +7,8 @@ SOURCES += \
     HUD.cpp \
     LevelDisplayer.cpp \
     InventoryDisplayer.cpp \
-    GameDataManager.cpp
+    GameDataManager.cpp \
+    Utils.cpp
 
 OTHER_FILES += \
     resources/sigsegv.rcc \
@@ -25,7 +26,9 @@ HEADERS += \
     HUD.hpp \
     LevelDisplayer.hpp \
     InventoryDisplayer.hpp \
-    GameDataManager.hpp
+    GameDataManager.hpp \
+    Utils.hpp \
+    Exceptions.hpp
 
 macx: LIBS += -L$$PWD/libs/ -lgocs -ljson
 

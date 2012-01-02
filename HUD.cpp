@@ -28,10 +28,13 @@
 #include "HUD.hpp"
 
 
-HUD::HUD(const GameObjId &id)
+HUD::HUD(const GameObjId &id, const GameDataManager& gdm)
     :GameObject(id)
 {
-    //TODO
+    //Read settings from file.
+
+    //For every component, pick the value from GameDataManager
+    //and initialize the displayers.
 }
 
 

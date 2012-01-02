@@ -26,6 +26,7 @@
  */
 
 #include "GameState.hpp"
+#include <QString>
 
 GameState::GameState(const GameObjId& id)
     :GameObject(id)
@@ -41,4 +42,15 @@ GameState::~GameState()
 void GameState::update()
 {
     //TODO
+}
+
+
+/**
+  *\brief Load game data from a Data Manager.
+  *\param dgm A GameDataManager
+  */
+void GameState::loadGameData(const std::string& resourceData)
+{
+    GameDataManager gdm(resourceData);
+    currentManager_ = gdm;
 }

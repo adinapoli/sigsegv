@@ -29,6 +29,8 @@
 #define GAMESTATE_HPP
 
 #include "gocs/gocs.hpp"
+#include "GameDataManager.hpp"
+#include <string>
 
 class GameState: public GameObject
 {
@@ -36,6 +38,10 @@ private:
     GameState(const GameObjId& id);
     ~GameState();
     void update();
+    void loadGameData(const std::string& dataResource);
+
+private:
+    GameDataManager currentManager_;
 };
 
 #endif

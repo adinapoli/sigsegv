@@ -38,11 +38,13 @@
 class GameDataManager
 {
 public:
+    GameDataManager();
     GameDataManager(const std::string& filename);
     ~GameDataManager();
+    GameDataManager& operator=(const GameDataManager& rhs);
 
 private:
-    const std::string filename_;
+    std::string filename_;
     Json::Value dataRoot_;
 };
 
