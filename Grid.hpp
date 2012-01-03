@@ -28,8 +28,8 @@
 #ifndef GRID_CPP
 #define GRID_CPP
 
-#include "gocs/gocs.hpp"
 #include "GameDataManager.hpp"
+#include "QGraphicsComponent.hpp"
 
 class Grid: public GameObject
 {
@@ -40,6 +40,7 @@ public:
 
     void update();
     void load(const GameDataManager& gdm);
+    void show(QGraphicsScene& scene);
     Grid& operator=(const Grid& rhs);
 };
 

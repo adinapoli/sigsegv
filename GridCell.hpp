@@ -28,13 +28,12 @@
 #ifndef GRIDCELL_HPP
 #define GRIDCELL_HPP
 
-#include "gocs/gocs.hpp"
-#include <QtGui>
+#include "QGraphicsComponent.hpp"
 
 static const int CELL_SIDE = 18;
 static const int CELL_OFFSET = 1;
 
-class GridCell: public GraphicComponent, public QGraphicsItem
+class GridCell: public QGraphicsComponent
 {
 public:
     GridCell(const GameCompId& id, int x, int y);

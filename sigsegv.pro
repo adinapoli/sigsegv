@@ -8,7 +8,8 @@ SOURCES += \
     LevelDisplayer.cpp \
     InventoryDisplayer.cpp \
     GameDataManager.cpp \
-    Utils.cpp
+    Utils.cpp \
+    QGraphicsComponent.cpp
 
 OTHER_FILES += \
     resources/sigsegv.rcc \
@@ -28,7 +29,8 @@ HEADERS += \
     InventoryDisplayer.hpp \
     GameDataManager.hpp \
     Utils.hpp \
-    Exceptions.hpp
+    Exceptions.hpp \
+    QGraphicsComponent.hpp
 
 macx: LIBS += -L$$PWD/libs/ -lgocs -ljson
 

@@ -34,9 +34,9 @@ GameState::GameState(const GameObjId& id, int level)
     :GameObject(id), currentLevel_(level)
 {
     //Read configuration from settings.
-    Json::Value settings = readSettingsFor(id);
+    Json::Value settings = readSettingsFor(id_);
 
-    //Coordinates for resolution settings.
+    //Get the coordinates for setting window and vieport size
     Json::Value upperLeft = settings["resolution"][0u];
     Json::Value bottomRight = settings["resolution"][1u];
 
@@ -75,6 +75,7 @@ GameState::GameState(const GameObjId& id, int level)
 
     //Create the grid
     grid_.load(currentManager_);
+    grid_.show(scene_);
 }
 
 GameState::~GameState()

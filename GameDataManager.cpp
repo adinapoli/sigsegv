@@ -89,7 +89,7 @@ GameDataManager& GameDataManager::operator=(const GameDataManager& rhs)
 }
 
 
-const Json::Value& GameDataManager::operator[] (const std::string& key) const
+const Json::Value GameDataManager::operator[] (const std::string& key) const
 {
     return dataRoot_.get(key, "ValueNotFound");
 }

@@ -48,7 +48,6 @@ Json::Value readSettingsFor(const std::string objName)
     Json::Reader reader;
 
     bool parsingSuccessful = reader.parse(documentAsString, dataRoot);
-    std::cout << dataRoot << std::endl;
     if ( !parsingSuccessful )
     {
         // report to the user the failure and their locations in the document.

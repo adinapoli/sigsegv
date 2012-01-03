@@ -2,7 +2,7 @@
 	"gameState" :
 	{
 		"windowTitle" : "SIGSEGV",
-		"resolution" : [[0,0], [640,480]],
+		"resolution" : [[0,0], [800,600]],
 		"background" : ":/images/ramtrace.png"
 	}
 }

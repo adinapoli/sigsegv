@@ -29,7 +29,7 @@
 #include <iostream>
 
 GridCell::GridCell(const GameCompId& id, int x, int y)
-    :x_(x), y_(y), GraphicComponent(id)
+    :x_(x), y_(y), QGraphicsComponent(id)
 {
     //NO-OP
 }

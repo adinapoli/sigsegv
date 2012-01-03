@@ -25,28 +25,19 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef GAMEDATAMANAGER_HPP
-#define GAMEDATAMANAGER_HPP
+#ifndef QGRAPHICSCOMPONENT_HPP
+#define QGRAPHICSCOMPONENT_HPP
 
-#include "json/json.h"
-#include <string>
+#include "gocs/gocs.hpp"
+#include <QtGui>
 
-/**
-  * \brief Read data from outside and parse it
-  *
-  */
-class GameDataManager
+class QGraphicsComponent: public GraphicComponent, public QGraphicsItem
 {
 public:
-    GameDataManager();
-    GameDataManager(const std::string& filename);
-    ~GameDataManager();
-    GameDataManager& operator=(const GameDataManager& rhs);
-    const Json::Value operator[](const std::string& key) const;
-
-private:
-    std::string filename_;
-    Json::Value dataRoot_;
+    QGraphicsComponent(const GameCompId& id): GraphicComponent(id){}
+    QRectF boundingRect() const;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+               QWidget *widget);
 };
 
-#endif
+#endif // QGRAPHICSCOMPONENT_HPP

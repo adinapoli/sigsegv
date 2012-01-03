@@ -29,6 +29,7 @@
 #include "Grid.hpp"
 #include "json/json.h"
 #include "GridCell.hpp"
+#include <sstream>
 
 
 Grid::Grid(const GameObjId& id)
@@ -41,6 +42,23 @@ Grid::~Grid()
 {
     //TODO
 }
+
+
+void Grid::show(QGraphicsScene& scene)
+{
+    //Get only the graphics component
+    std::vector<const GameComponent*> gc = getComponentsByFamilyID("graphics");
+
+    //For each of them, convert to a GraphicsComponent and add to the scene.
+    //Pre-condition: Every graphics object is addable to the scene.
+    for(int i = 0; i < gc.size(); i++)
+    {
+        //I need to const_cast the component in order to display it
+        GameComponent* nonConstComp = const_cast<GameComponent*>(gc[i]);
+        scene.addItem(dynamic_cast<QGraphicsItem*>(nonConstComp));
+    }
+}
+
 
 Grid& Grid::operator=(const Grid& rhs)
 {
@@ -65,13 +83,18 @@ void Grid::load(const GameDataManager& gdm)
     //don't render them.
 
     //First load the free cells.
-    Json::Value freeCells = gdm["free"];
+    Json::Value mapCells = gdm["map"];
+    Json::Value freeCells = mapCells.get("free", "ValueNotFound");
 
     for(int i = 0; i < freeCells.size(); i++)
     {
         int x = freeCells[i][0u].asInt();
         int y = freeCells[i][1u].asInt();
-        std::string cellName = freeCells[i][0u].asString() + freeCells[i][1u].asString();
+
+        //Use ssstream to obtain the cellname from int -> string conversion.
+        std::stringstream cellNameStream;
+        cellNameStream << x << y;
+        std::string cellName(cellNameStream.str());
         componentsMap_[cellName] = new GridCell(GameCompId("cell" + cellName),
                                                 x,y);
     }
