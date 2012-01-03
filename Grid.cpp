@@ -59,19 +59,6 @@ void Grid::show(QGraphicsScene& scene)
     }
 }
 
-
-Grid& Grid::operator=(const Grid& rhs)
-{
-    //Probably not the best solution
-    if(this != &rhs)
-    {
-        componentsMap_.clear();
-        componentsMap_ = rhs.componentsMap_;
-    }
-
-    return *this;
-}
-
 void update()
 {
     //TODO

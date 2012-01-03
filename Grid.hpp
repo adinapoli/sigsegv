@@ -41,7 +41,6 @@ public:
     void update();
     void load(const GameDataManager& gdm);
     void show(QGraphicsScene& scene);
-    Grid& operator=(const Grid& rhs);
 };
 
 #endif

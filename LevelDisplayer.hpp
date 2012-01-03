@@ -39,9 +39,6 @@ public:
     ~LevelDisplayer();
     void update();
     void render();
-    QRectF boundingRect() const;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
-               QWidget *widget);
 
 private:
     int levelNumber_;

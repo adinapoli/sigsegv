@@ -75,7 +75,11 @@ GameState::GameState(const GameObjId& id, int level)
 
     //Create the grid
     grid_.load(currentManager_);
-    grid_.show(scene_);
+
+
+    //Create the HUD
+    HUD hud(GameObjId("hud"), currentManager_);
+    hud_ = hud;
 }
 
 GameState::~GameState()
@@ -86,6 +90,19 @@ GameState::~GameState()
 void GameState::update()
 {
     //TODO
+}
+
+
+/**
+  *\brief Show the world, calling the display of the HUD, Grid and
+  *       everything else. Probably it will be deprecated.
+  */
+void GameState::showWorld()
+{
+    //Show the grid
+    grid_.show(scene_);
+    hud_.show(scene_);
+    view_.show();
 }
 
 

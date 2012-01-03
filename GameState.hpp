@@ -32,6 +32,7 @@
 #include <QtGui>
 #include "GameDataManager.hpp"
 #include "Grid.hpp"
+#include "HUD.hpp"
 #include <string>
 
 class GameState: public GameObject
@@ -41,6 +42,9 @@ public:
     ~GameState();
     void update();
     void loadGameData(const std::string& dataResource);
+
+    //Experimental
+    void showWorld();
     QGraphicsView& view() { return view_; }
 
 private:
@@ -49,6 +53,7 @@ private:
     QGraphicsView view_;
     GameDataManager currentManager_;
     Grid grid_;
+    HUD hud_;
     int currentLevel_;
 };
 

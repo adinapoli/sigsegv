@@ -28,24 +28,13 @@
 #include <QtGui>
 #include <iostream>
 #include "GameState.hpp"
-#include "GameDataManager.hpp"
 
 int main(int argc, char *argv[])
 {   
-    //This is how to create a barebone Graphic Scene.
     QApplication a(argc, argv);
 
-    
-    //Create a GridCell
     GameState gameState("gameState", 1);
-
-
-    //GridCell cell1("cell51", 5,1);
-    //scene.addItem(&cell1);
-
-
-    //view.resize(640, 480);
-    gameState.view().show();
+    gameState.showWorld();
     
     return a.exec();
 }

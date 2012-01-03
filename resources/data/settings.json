@@ -4,5 +4,11 @@
 		"windowTitle" : "SIGSEGV",
 		"resolution" : [[0,0], [800,600]],
 		"background" : ":/images/ramtrace.png"
+	},
+	
+	"levelDisplayer" :
+	{
+		"textColor" : [255,255,255],
+		"textPosition" : [50,4]
 	}
 }

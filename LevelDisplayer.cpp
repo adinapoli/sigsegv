@@ -26,6 +26,7 @@
  */
 
 #include "LevelDisplayer.hpp"
+#include "Utils.hpp"
 
 
 LevelDisplayer::LevelDisplayer(const GameCompId& id,
@@ -33,7 +34,19 @@ LevelDisplayer::LevelDisplayer(const GameCompId& id,
                                const std::string& levelName)
     :GraphicComponent(id), levelNumber_(levelNumber), levelName_(levelName)
 {
-    //TODO
+
+    Json::Value settings = readSettingsFor(id_);
+    Json::Value textColor = settings["textColor"];
+    Json::Value textPosition = settings["textPosition"];
+
+    std::string s("Level 1  - " + levelName_); //QQ
+    QString plainText(s.c_str());
+    setPlainText(plainText);
+    setPos(textPosition[0u].asInt(),
+           textPosition[1u].asInt());
+    setDefaultTextColor(QColor(textColor[0u].asInt(),
+                               textColor[1u].asInt(),
+                               textColor[2u].asInt()));
 }
 
 LevelDisplayer::~LevelDisplayer()
@@ -47,19 +60,6 @@ void LevelDisplayer::update()
 }
 
 void LevelDisplayer:: render()
-{
-    //TODo
-}
-
-QRectF LevelDisplayer::boundingRect() const
-{
-    //TODO
-}
-
-
-void LevelDisplayer::paint(QPainter *painter,
-                           const QStyleOptionGraphicsItem *option,
-                           QWidget *widget)
 {
     //TODo
 }

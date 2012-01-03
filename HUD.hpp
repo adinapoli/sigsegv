@@ -30,6 +30,7 @@
 
 #include "gocs/gocs.hpp"
 #include "GameDataManager.hpp"
+#include <QGraphicsScene>
 
 /*
  * An HUD is an aggregation of Graphic Component, thus it's an Object.
@@ -37,9 +38,12 @@
 
 class HUD: public GameObject
 {
+public:
+    HUD(): GameObject("hud"){}
     HUD(const GameObjId& id, const GameDataManager& gdm);
     ~HUD();
     void update();
+    void show(QGraphicsScene& scene);
 };
 
 #endif

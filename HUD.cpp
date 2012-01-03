@@ -58,3 +58,19 @@ void HUD::update()
 {
     //TODO
 }
+
+
+void HUD::show(QGraphicsScene& scene)
+{
+    //Get only the graphics component
+    std::vector<const GameComponent*> gc = getComponentsByFamilyID("graphics");
+
+    //For each of them, convert to a GraphicsComponent and add to the scene.
+    //Pre-condition: Every graphics object is addable to the scene.
+    for(int i = 0; i < gc.size(); i++)
+    {
+        //I need to const_cast the component in order to display it
+        GameComponent* nonConstComp = const_cast<GameComponent*>(gc[i]);
+        scene.addItem(dynamic_cast<QGraphicsItem*>(nonConstComp));
+    }
+}
