@@ -1,7 +1,8 @@
 import pygame
 import sys
 from pygame.locals import *
-
+from pgu import gui
+from jsonexporter import JSonExporter
 
 
 def get_cell_id(x, y, cell_size = 20, cell_offset = 2):
@@ -14,6 +15,12 @@ def get_cell_id(x, y, cell_size = 20, cell_offset = 2):
  
 def main():
     pygame.init()
+    exporter = JSonExporter("UntitledLevel.json")
+    
+    def label(text, size, x, y, color = (255,255,255)):
+        font = pygame.font.Font(pygame.font.match_font('menlo'), size)
+        text = font.render(text, 1, color)
+        screen.blit(text, (x,y))
     
     
     resolution = (800,600)
@@ -27,26 +34,37 @@ def main():
     red_color = (255,0,0)
     blue_color = (0,0,255)
     
+    #Draw tools
+    label("SIGSEGV MAP EDITOR", 25, 300, 10)
+    label("Left mouse click: Draw a free cell.", 20, 10, 25)
+    label("Right mouse click: Draw an enemy cell.", 20, 10, 45)
+    label("Press S to export the current map to a file.", 20, 10, 65, color = red_color)
+    
     #Draw vertical lines
     vertical_cycles = resolution[0] / CELL_SIDE
     for x in range(6, vertical_cycles - 5):
         offset = x * CELL_SIDE
-        pygame.draw.line(screen, line_color, (offset,6*CELL_SIDE), (offset, resolution[1] - 6*CELL_SIDE), CELL_BORDER)
+        pygame.draw.line(screen, line_color, 
+                         (offset,6*CELL_SIDE), 
+                         (offset, resolution[1] - 6*CELL_SIDE), 
+                         CELL_BORDER)
         
         
     #Draw horizontal lines
     horizontal_cycles = resolution[1] / CELL_SIDE
     for x in range(6, horizontal_cycles - 5):
         offset = x * CELL_SIDE
-        pygame.draw.line(screen, line_color, (6*CELL_SIDE, offset), (resolution[0] - 6*CELL_SIDE, offset), CELL_BORDER)
+        pygame.draw.line(screen, line_color, 
+                         (6*CELL_SIDE, offset),
+                         (resolution[0] - 6*CELL_SIDE, offset),
+                         CELL_BORDER)
         
  
     #Update the display
     pygame.display.flip()
     
-    
-    #Editor logic: whenever the user click into a grid with a selected "brush",
-    #The grid cell will be colored with the selected brush color.
+    #Editor logic: whenever the user click into a grid with a selected 
+    #"brush", the grid cell will be colored with the selected brush color.
     while 1:
         for e in pygame.event.get():
  
@@ -59,16 +77,28 @@ def main():
                     cell_id = get_cell_id(e.pos[0], e.pos[1])
                     box_x = (cell_id[0]-1) * CELL_SIDE + CELL_BORDER
                     box_y = (cell_id[1]-1) * CELL_SIDE + CELL_BORDER
-                    red_box = pygame.Rect(box_x, box_y, CELL_SIDE - CELL_BORDER, CELL_SIDE - CELL_BORDER)
+                    red_box = pygame.Rect(box_x, box_y, 
+                                          CELL_SIDE - CELL_BORDER, 
+                                          CELL_SIDE - CELL_BORDER)
                     pygame.draw.rect(screen, red_color, red_box)
+                    exporter.add_free_cell(cell_id)
                     
                 #Right mouse, draws enemies
                 if e.button == 3:
                     cell_id = get_cell_id(e.pos[0], e.pos[1])
                     box_x = (cell_id[0]-1) * CELL_SIDE + CELL_BORDER
                     box_y = (cell_id[1]-1) * CELL_SIDE + CELL_BORDER
-                    blue_box = pygame.Rect(box_x, box_y, CELL_SIDE - CELL_BORDER, CELL_SIDE - CELL_BORDER)
+                    blue_box = pygame.Rect(box_x, box_y, 
+                                           CELL_SIDE - CELL_BORDER, 
+                                           CELL_SIDE - CELL_BORDER)
                     pygame.draw.rect(screen, blue_color, blue_box)
+                    exporter.add_enemy_cell(cell_id)
+                    
+            #Catch whether the user press S to save the map.
+            if e.type == KEYDOWN and e.key == 115:
+                print "Saving file on disk."
+                exporter.export()
+                print "File saved."
  
  
             pygame.display.flip()
