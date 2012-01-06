@@ -1,6 +1,4 @@
 {
-	"levelNumber" : 1,
-	"levelName" : "The Pit",
     "map": {
         "player": [
             8, 

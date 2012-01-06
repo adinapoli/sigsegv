@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     //Second parameter is the level to load.
-    GameState gameState("gameState", 2);
+    GameState gameState("gameState", 1);
     gameState.showWorld();
     
     return a.exec();

@@ -25,28 +25,40 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef GRIDCELL_HPP
-#define GRIDCELL_HPP
+#include "ExitCell.hpp"
 
-#include "QGraphicsComponent.hpp"
 
-static const int CELL_SIDE = 18;
-static const int CELL_OFFSET = 1;
-
-class GridCell: public QGraphicsComponent
+ExitCell::ExitCell(const GameCompId& id, int x, int y)
+    :GridCell(id, x, y)
 {
-public:
-    GridCell(const GameCompId& id, int x, int y);
-    ~GridCell();
-    void update();
-    void render();
-    QRectF boundingRect() const;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
-               QWidget *widget);
+    //NO-OP
+}
 
-protected:
-    int x_, y_;
-    QPoint worldTopLeft_, worldBottomRight_;
-};
 
-#endif
+ExitCell::~ExitCell()
+{
+    //NO-OP
+}
+
+
+void ExitCell::update()
+{
+    //NO-OP
+}
+
+
+void ExitCell::render()
+{
+    //NO-OP
+}
+
+
+void ExitCell::paint(QPainter *painter,
+                     const QStyleOptionGraphicsItem *option,
+                     QWidget *widget)
+{
+    painter->setBrush(Qt::green);
+    painter->setPen(Qt::NoPen);
+    painter->drawRect(boundingRect());
+}
+

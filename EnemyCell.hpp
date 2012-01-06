@@ -25,28 +25,20 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef GRIDCELL_HPP
-#define GRIDCELL_HPP
+#ifndef ENEMYCELL_HPP
+#define ENEMYCELL_HPP
 
-#include "QGraphicsComponent.hpp"
+#include "GridCell.hpp"
 
-static const int CELL_SIDE = 18;
-static const int CELL_OFFSET = 1;
-
-class GridCell: public QGraphicsComponent
+class EnemyCell: public GridCell
 {
 public:
-    GridCell(const GameCompId& id, int x, int y);
-    ~GridCell();
+    EnemyCell(const GameCompId& id, int x, int y);
+    ~EnemyCell();
     void update();
     void render();
-    QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                QWidget *widget);
-
-protected:
-    int x_, y_;
-    QPoint worldTopLeft_, worldBottomRight_;
 };
 
-#endif
+#endif // ENEMYCELL_HPP

@@ -29,6 +29,7 @@
 #include "Grid.hpp"
 #include "json/json.h"
 #include "GridCell.hpp"
+#include "EnemyCell.hpp"
 #include <sstream>
 
 
@@ -87,4 +88,18 @@ void Grid::load(const GameDataManager& gdm)
     }
 
     //TODO, enemies and objects cells.
+    Json::Value enemiesCells = mapCells.get("enemies", "ValueNotFound");
+
+    for(int i = 0; i < freeCells.size(); i++)
+    {
+        int x = enemiesCells[i][0u].asInt();
+        int y = enemiesCells[i][1u].asInt();
+
+        //Use ssstream to obtain the cellname from int -> string conversion.
+        std::stringstream cellNameStream;
+        cellNameStream << x << y;
+        std::string cellName(cellNameStream.str());
+        componentsMap_[cellName] = new EnemyCell(GameCompId("cell" + cellName),
+                                                x,y);
+    }
 }

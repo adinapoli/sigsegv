@@ -31,7 +31,28 @@
 GridCell::GridCell(const GameCompId& id, int x, int y)
     :x_(x), y_(y), QGraphicsComponent(id)
 {
-    //NO-OP
+
+    /* The grid is composed by 20 x 20 tiles,
+     * each tile with 18 px of content and 1 px as
+     * frame. Photoshop says this, even if the tile is
+     * 20 x 20, but I'm trusting it.
+     * Every tile is initially put in (1,1) -> (0,0) in world
+     * coords, and then translated by the correct offset.
+     */
+    QPoint topLeft(CELL_OFFSET,CELL_OFFSET);
+    QPoint bottomRight(CELL_SIDE, CELL_SIDE);
+    QRect rect(topLeft, bottomRight);
+
+
+    /* This simple math assure that you can position a cell
+     * just like a real grid, for example (1,1) will be the
+     * first row, first column.
+     */
+    rect.moveTo((x_-1) * CELL_SIDE + (CELL_OFFSET+1) * (x_-1),
+                (y_-1) * CELL_SIDE +  (CELL_OFFSET+1) * (y_-1));
+
+    worldTopLeft_ = rect.topLeft();
+    worldBottomRight_ = rect.bottomRight();
 }
 
 GridCell::~GridCell()
@@ -51,7 +72,7 @@ void GridCell::render()
 
 QRectF GridCell::boundingRect() const
 {
-    return QRectF();
+    return QRectF(worldTopLeft_, worldBottomRight_);
 }
 
 void GridCell::paint(QPainter *painter,
@@ -60,25 +81,5 @@ void GridCell::paint(QPainter *painter,
 {
     painter->setBrush(Qt::red);
     painter->setPen(Qt::NoPen);
-
-
-    /* The grid is composed by 20 x 20 tiles,
-     * each tile with 18 px of content and 1 px as
-     * frame. Photoshop says this, even if the tile is
-     * 20 x 20, but I'm trusting it.
-     * Every tile is initially put in (1,1) -> (0,0) in world
-     * coords, and then translated by the correct offset.
-     */
-    QPoint topLeft(CELL_OFFSET,CELL_OFFSET);
-    QPoint bottomRight(CELL_SIDE, CELL_SIDE);
-    QRect rect(topLeft, bottomRight);
-    painter->drawRect(rect);
-
-
-    /* This simple math assure that you can position a cell
-     * just like a real grid, for example (1,1) will be the
-     * first row, first column.
-     */
-    setPos((x_-1) * CELL_SIDE + (CELL_OFFSET+1) * (x_-1),
-          (y_-1) * CELL_SIDE +  (CELL_OFFSET+1) * (y_-1));
+    painter->drawRect(boundingRect());
 }

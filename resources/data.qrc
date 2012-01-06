@@ -3,5 +3,6 @@
         <file>data/level1.json</file>
         <file>data/settings.json</file>
         <file>data/level2.json</file>
+        <file>data/level3.json</file>
     </qresource>
 </RCC>

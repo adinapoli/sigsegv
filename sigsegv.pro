@@ -9,7 +9,9 @@ SOURCES += \
     InventoryDisplayer.cpp \
     GameDataManager.cpp \
     Utils.cpp \
-    QGraphicsComponent.cpp
+    QGraphicsComponent.cpp \
+    EnemyCell.cpp \
+    ExitCell.cpp
 
 OTHER_FILES += \
     resources/sigsegv.rcc \
@@ -30,7 +32,9 @@ HEADERS += \
     GameDataManager.hpp \
     Utils.hpp \
     Exceptions.hpp \
-    QGraphicsComponent.hpp
+    QGraphicsComponent.hpp \
+    EnemyCell.hpp \
+    ExitCell.hpp
 
 macx: LIBS += -L$$PWD/libs/ -lgocs -ljson
 

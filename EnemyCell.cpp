@@ -25,28 +25,40 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef GRIDCELL_HPP
-#define GRIDCELL_HPP
+#include "EnemyCell.hpp"
 
-#include "QGraphicsComponent.hpp"
 
-static const int CELL_SIDE = 18;
-static const int CELL_OFFSET = 1;
-
-class GridCell: public QGraphicsComponent
+EnemyCell::EnemyCell(const GameCompId& id, int x, int y)
+    :GridCell(id, x, y)
 {
-public:
-    GridCell(const GameCompId& id, int x, int y);
-    ~GridCell();
-    void update();
-    void render();
-    QRectF boundingRect() const;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
-               QWidget *widget);
+    //NO-OP
+}
 
-protected:
-    int x_, y_;
-    QPoint worldTopLeft_, worldBottomRight_;
-};
 
-#endif
+EnemyCell::~EnemyCell()
+{
+    //NO-OP
+}
+
+
+void EnemyCell::update()
+{
+    //NO-OP
+}
+
+
+void EnemyCell::render()
+{
+    //NO-OP
+}
+
+
+void EnemyCell::paint(QPainter *painter,
+                     const QStyleOptionGraphicsItem *option,
+                     QWidget *widget)
+{
+    painter->setBrush(Qt::blue);
+    painter->setPen(Qt::NoPen);
+    painter->drawRect(boundingRect());
+}
+

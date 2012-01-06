@@ -6,6 +6,8 @@ class JSonExporter(object):
         self.filename = filename
         self.freeCells = []
         self.enemiesCells = []
+        self.playerCell = None
+        self.exitCell = None
         
         
     def unique(self, alist):
@@ -22,10 +24,23 @@ class JSonExporter(object):
         self.enemiesCells.append(enemy_cell)
         
     def remove_free_cell(self, cell_tuple):
-        self.freeCells.remove(cell_tuple)
+        try:
+            self.freeCells.remove(cell_tuple)
+        except(ValueError):
+            pass
         
     def remove_enemy_cell(self, cell_tuple):
-        self.enemiesCells.remove(enemy_cell)
+        try:
+            self.enemiesCells.remove(enemy_cell)
+        except(ValueError):
+            pass
+        
+    def add_player_cell(self, cell_tuple):
+        self.playerCell = cell_tuple
+        
+    def add_exit_cell(self, cell_tuple):
+        self.exitCell = cell_tuple
+
         
         
     def export(self):
@@ -34,6 +49,8 @@ class JSonExporter(object):
         json_dict["map"] = dict()
         json_dict["map"]["free"] = self.unique(self.freeCells)
         json_dict["map"]["enemies"] = self.unique(self.enemiesCells)
+        json_dict["map"]["player"] = self.playerCell
+        json_dict["map"]["exit"] = self.exitCell
         
         json_as_string = json.dumps(json_dict, indent = 4)
         
